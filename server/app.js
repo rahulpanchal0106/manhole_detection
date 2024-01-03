@@ -17,6 +17,8 @@ app.get('/',(req,res)=>{
     res.sendFile(path.join(__dirname,'..','client','dashboard.html'))
 })
 
+// app.get('/')
+
 app.post('/sensordata',postSensorData)
 
 app.get('/sensordata',getSensorData)
