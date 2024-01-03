@@ -14,7 +14,7 @@ app.use(bodyParser.json())
 
 app.get('/',(req,res)=>{
     console.log('serving dashboard')
-    res.sendFile(path.join(__dirname,'..','client','index.html'))
+    res.sendFile(path.join(__dirname,'..','client','dashboard.html'))
 })
 
 app.post('/sensordata',postSensorData)
