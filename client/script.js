@@ -32,33 +32,35 @@ document.addEventListener('DOMContentLoaded',function () {
     setInterval(async function () {
         
         
-        await fetch('/sensordata')
-        .then((res)=>{
-            return res.json()
-        })
-        .then((data)=>{
-            console.log(data)
-            if(data){
-                var temperatureData = data.temperature;
-                var gasData = data.gas;
-                var waterLevelData = data.waterlevel;
-                document.getElementById('temperatureValue').textContent = `Temperature: ${temperatureData} °C`;
-                document.getElementById('gasValue').textContent = `Gas Level: ${gasData} ppm`;
-                document.getElementById('waterLevelValue').textContent = `Water Level: ${waterLevelData} cm`;
-            }else{
-                document.getElementById('temperatureValue').textContent = `Temperature: null °C`;
-                document.getElementById('gasValue').textContent = `Gas Level: null ppm`;
-                document.getElementById('waterLevelValue').textContent = `Water Level: null cm`;
-            }
+        // await fetch('/sensordata')
+        // .then((res)=>{
+        //     return res.json()
+        // })
+        // .then((data)=>{
+        //     console.log(data)
+        //     if(data){
+        //         var temperatureData = data.temperature;
+        //         var gasData = data.gas;
+        //         var waterLevelData = data.waterlevel;
+        //         document.getElementById('temperatureValue').textContent = `Temperature: ${temperatureData} °C`;
+        //         document.getElementById('gasValue').textContent = `Gas Level: ${gasData} ppm`;
+        //         document.getElementById('waterLevelValue').textContent = `Water Level: ${waterLevelData} cm`;
+        //     }else{
+        //         document.getElementById('temperatureValue').textContent = `Temperature: null °C`;
+        //         document.getElementById('gasValue').textContent = `Gas Level: null ppm`;
+        //         document.getElementById('waterLevelValue').textContent = `Water Level: null cm`;
+        //     }
 
-            // Update the alerts list
-            var alerts = getAlerts(temperatureData,waterLevelData,gasData);
-            updateAlertsList(alerts);
+        //     // Update the alerts list
+        //     var alerts = getAlerts(temperatureData,waterLevelData,gasData);
+        //     updateAlertsList(alerts);
 
-        })
-        .catch((err)=>{
-            console.log('getsensordata error\n',err)
-        })
+        // })
+        // .catch((err)=>{
+        //     console.log('getsensordata error\n',err)
+        // })
+
+        getData()
         
     }, 2000);
 });
@@ -76,6 +78,29 @@ async function getData(){
         //     console.log(`gas: ${doc.gas}`)
         // })
         console.log(data)
+            if(data){
+                // var temperatureData = data.temperature;
+                // var gasData = data.gas;
+                // var waterLevelData = data.waterlevel;
+                // document.getElementById('temperatureValue').textContent = `Temperature: ${temperatureData} °C`;
+                // document.getElementById('gasValue').textContent = `Gas Level: ${gasData} ppm`;
+                // document.getElementById('waterLevelValue').textContent = `Water Level: ${waterLevelData} cm`;
+                var tiltData = data.tilt;
+
+                document.querySelector('.tilt').textContent = tiltData
+
+            }else{
+                // document.getElementById('temperatureValue').textContent = `Temperature: null °C`;
+                // document.getElementById('gasValue').textContent = `Gas Level: null ppm`;
+                // document.getElementById('waterLevelValue').textContent = `Water Level: null cm`;
+
+                document.querySelector('.tilt').textContent = 'No data from server'
+            }
+
+            // Update the alerts list
+        //var alerts = getAlerts(temperatureData,waterLevelData,gasData);
+        //updateAlertsList();
+
         return data
     })
     .catch((err)=>{
@@ -84,7 +109,7 @@ async function getData(){
 }
 
 // Function to get random alerts (replace with your actual implementation)
-function getAlerts(waterlevel,gas) {
+function getAlerts() {
     return Math.random() > 0.8 ? ['Manhole Overflow', 'High Gas Level'] : [];
     // if(waterlevel>20){
     //     return 'Manhole Overflow'
@@ -127,6 +152,5 @@ function updateAlertsList(alerts) {
 
 
 //do something like this on hardware to post the json sensordata to the server
-
 
 

@@ -1,15 +1,15 @@
 const mongoose = require('mongoose');
 
 const sensordata_schema = mongoose.Schema({
-    temperature:{
-        type:Number
+    tilt:{
+        type:String
     },
-    waterlevel:{
-        type:Number
-    },
-    gas:{
-        type:Number
-    }
+    // waterlevel:{
+    //     type:Number
+    // },
+    // gas:{
+    //     type:Number
+    // }
 },{
     timestamps:true
 });

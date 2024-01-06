@@ -5,9 +5,9 @@ function postSensorData(req,res){
     console.log(data);
     sensordata_model.create(data)
     if(data){
-        res.status(200).json({'msg':'Data received'})
+        res.status(200).send("🚀 Data Received By Server")
     }else{
-        res.status(501).json({'msg':'Data not received'})
+        res.status(501).send("☄️ Data was not received by Server")
     }
 }
 
