@@ -99,11 +99,11 @@ async function getData(){
                 const indicator = document.querySelector('#indicator')
                 if(pitch>=25 || pitch<=-25 || roll>=15 || roll<=-15){
                     console.log('Tilted');
-                    
+                    indicator.style.backgroundColor="red";
                     alertList.innerHTML=`Disturbed`;
-                    
                 }else{
-                    console.log("Not tilted")
+                    console.log("Not tilted");
+                    indicator.style.backgroundColor="green";
                     alertList.innerHTML="Undisturbed"
                 }
 
