@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const sensordata_schema = mongoose.Schema({
     tilt:{
-        type:Number
+        type:Object
     },
     // waterlevel:{
     //     type:Number
