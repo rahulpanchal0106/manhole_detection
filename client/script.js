@@ -1,32 +1,32 @@
-document.querySelector('#send').addEventListener('click',(e)=>{
-    e.preventDefault();
-    let temp = document.querySelector('#temp').value
-    let gas = document.querySelector('#gas').value
-    let water = document.querySelector('#water').value
+// document.querySelector('#send').addEventListener('click',(e)=>{
+//     e.preventDefault();
+//     let temp = document.querySelector('#temp').value
+//     let gas = document.querySelector('#gas').value
+//     let water = document.querySelector('#water').value
 
-    const sensorData = {
-        "temperature": temp,
-        "gas": gas,
-        "waterlevel" : water
-    }
+//     const sensorData = {
+//         "temperature": temp,
+//         "gas": gas,
+//         "waterlevel" : water
+//     }
     
-    fetch('/sensordata',{
-        method:'POST',
-        headers:{
-            'Content-Type':'application/json'
-        },
-        body:JSON.stringify(sensorData)
-    })
-    .then((res)=>{
-        return res.json()
-    })
-    .then((data)=>{
-        console.log(data)
-    })
-    .catch((err)=>{
-        console.log(err)
-    })
-})
+//     fetch('/sensordata',{
+//         method:'POST',
+//         headers:{
+//             'Content-Type':'application/json'
+//         },
+//         body:JSON.stringify(sensorData)
+//     })
+//     .then((res)=>{
+//         return res.json()
+//     })
+//     .then((data)=>{
+//         console.log(data)
+//     })
+//     .catch((err)=>{
+//         console.log(err)
+//     })
+// })
 
 document.addEventListener('DOMContentLoaded',function () {
     setInterval(async function () {
