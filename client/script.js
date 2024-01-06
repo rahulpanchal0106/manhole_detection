@@ -97,23 +97,23 @@ async function getData(){
 
                 const alertList = document.querySelector('#alertList')
 
-                if(x>7){
-                    alertList.innerHTML=`X>7`
+                if(x>=7){
+                    alertList.innerHTML=`X >= 7`
                     
                 }else if(x<7){
-                    alertList.innerHTML=`X<7`
+                    alertList.innerHTML=`X < 7`
                 }else{
                     alertList.innerHTML="No alert"
                 }
 
-                document.querySelector('.tilt').textContent = tiltData
+                document.querySelector('#tilt').textContent = tiltData
 
             }else{
                 // document.getElementById('temperatureValue').textContent = `Temperature: null °C`;
                 // document.getElementById('gasValue').textContent = `Gas Level: null ppm`;
                 // document.getElementById('waterLevelValue').textContent = `Water Level: null cm`;
 
-                document.querySelector('.tilt').textContent = 'No data from server'
+                document.querySelector('#tilt').textContent = 'No data from server'
             }
 
             // Update the alerts list

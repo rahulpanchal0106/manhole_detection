@@ -11,7 +11,7 @@
     <div class="container">
         <h1>Monitoring Dashboard</h1>
 
-        <div class="temp_data_collector">
+        <!-- <div class="temp_data_collector">
             <h4>For now, some basic sensor data is to be fed to the server in order to test the backend </h4>
             <h4>Later when the data from microcontroller is received, it will be processed just like the data entered here</h4>
             <br>
@@ -21,7 +21,7 @@
 
             <button id="send">send</button>
             <h4>here in the water level, I was not sure if we are showing the exact amount of water level or just boolean </h4>
-        </div>
+        </div> -->
 
         <div class="alert-container">
             <h2>Alerts:</h2>
@@ -29,7 +29,6 @@
                 <!-- Alert messages will be dynamically added here -->
             </ul>
             <br>
-            <h6>Yea, its displaying alerts randomly</h6>
             <h6>
                 Instead of this section, an sms system will be implemented using Twilio (which provides api for sending sms to a perticular telephone number)
             </h6>
@@ -41,9 +40,10 @@
         </div>
         <div class="data-container">
             <h2>SensorData:</h2>
-            <p id="temperatureValue" class="tilt">Tilt: Loading...</p>
-            <p id="gasValue">Loading...</p>
-            <p id="waterLevelValue">Loading...</p>
+            <label for="tilt">Tilt</label>
+            <p id="tilt">Loading...</p>
+            <!-- <p id="gasValue">Loading...</p>
+            <p id="waterLevelValue">Loading...</p> -->
         </div>
         <br>
         <h4>These values that were entered by you, <br> were first brough to the server, <br> then they were stored in the database, <br> and then brought back here to display <br> note that the previous entries are stored in the database, they're just not shown here, we can implement a different section to show history of entries</h4>
