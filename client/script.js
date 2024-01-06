@@ -87,23 +87,23 @@ async function getData(){
         // })
         console.log(data)
             if(data){
-                var x = data.tilt.x;
-                var y = data.tilt.y;
-                var z = data.tilt.z;
+                var pitch = data.tilt.pitch;
+                var roll = data.tilt.roll;
+                // var z = data.tilt.z;
                 // document.getElementById('temperatureValue').textContent = `Temperature: ${temperatureData} °C`;
                 // document.getElementById('gasValue').textContent = `Gas Level: ${gasData} ppm`;
                 // document.getElementById('waterLevelValue').textContent = `Water Level: ${waterLevelData} cm`;
-                var tiltData = `${x} , ${y} , ${z}`;
+                var tiltData = `${pitch} , ${roll}`;
 
                 const alertList = document.querySelector('#alertList')
 
-                if(x>=7){
-                    console.log('x>=0')
-                    alertList.innerHTML=`Disturbed`
+                if(pitch>=7){
+                    console.log('pitch>=0');
+                    alertList.innerHTML=`Disturbed`;
                     
-                }else if(x<-7){
-                    console.log('x<-7')
-                    alertList.innerHTML=`Disturbed`
+                }else if(pitch<-7){
+                    console.log('pitch<-7');
+                    alertList.innerHTML=`Disturbed`;
                 }else{
                     alertList.innerHTML="Undisturbed"
                 }
