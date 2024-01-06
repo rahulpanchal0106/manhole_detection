@@ -9,6 +9,14 @@
 //         "gas": gas,
 //         "waterlevel" : water
 //     }
+
+// const payload = {
+//     "tilt" : {
+//         "x":x,
+//         "y":y,
+//         "z":z
+//     }
+// }
     
 //     fetch('/sensordata',{
 //         method:'POST',

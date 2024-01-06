@@ -6,7 +6,11 @@ function postSensorData(req,res){
     console.log("✨✨\n",data);
     
     if(data){
-        sensordata_model.create(data)
+        try{
+            sensordata_model.create(data)
+        }catch(e){
+            console.log('Data could not be save to the database\n',e)
+        }
         res.status(200).send("🚀 Data Received By Server")
 
     }else{
