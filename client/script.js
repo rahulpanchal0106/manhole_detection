@@ -98,9 +98,11 @@ async function getData(){
                 const alertList = document.querySelector('#alertList')
 
                 if(x>=7){
+                    console.log('x>=0')
                     alertList.innerHTML=`X >= 7`
                     
-                }else if(x<7){
+                }else if(x<-7){
+                    console.log('x<7')
                     alertList.innerHTML=`X < 7`
                 }else{
                     alertList.innerHTML="No alert"
