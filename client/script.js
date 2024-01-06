@@ -96,9 +96,10 @@ async function getData(){
                 var tiltData = `${pitch} , ${roll}`;
 
                 const alertList = document.querySelector('#alertList')
-
-                if(pitch>=30 || pitch<=-30 || roll>=30 || roll<=-30){
+                const indicator = document.querySelector('#indicator')
+                if(pitch>=25 || pitch<=-25 || roll>=15 || roll<=-15){
                     console.log('Tilted');
+                    
                     alertList.innerHTML=`Disturbed`;
                     
                 }else{
