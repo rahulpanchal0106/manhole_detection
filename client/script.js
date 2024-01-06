@@ -97,14 +97,12 @@ async function getData(){
 
                 const alertList = document.querySelector('#alertList')
 
-                if(pitch>=7){
-                    console.log('pitch>=0');
+                if(pitch>=30 || pitch<=-30 || roll>=30 || roll<=-30){
+                    console.log('Tilted');
                     alertList.innerHTML=`Disturbed`;
                     
-                }else if(pitch<-7){
-                    console.log('pitch<-7');
-                    alertList.innerHTML=`Disturbed`;
                 }else{
+                    console.log("Not tilted")
                     alertList.innerHTML="Undisturbed"
                 }
 
