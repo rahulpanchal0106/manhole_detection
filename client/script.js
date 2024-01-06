@@ -99,13 +99,13 @@ async function getData(){
 
                 if(x>=7){
                     console.log('x>=0')
-                    alertList.innerHTML=`X >= 7`
+                    alertList.innerHTML=`Disturbed`
                     
                 }else if(x<-7){
-                    console.log('x<7')
-                    alertList.innerHTML=`X < 7`
+                    console.log('x<-7')
+                    alertList.innerHTML=`Disturbed`
                 }else{
-                    alertList.innerHTML="No alert"
+                    alertList.innerHTML="Undisturbed"
                 }
 
                 document.querySelector('#tilt').textContent = tiltData
