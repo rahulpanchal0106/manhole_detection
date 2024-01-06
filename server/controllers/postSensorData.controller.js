@@ -9,13 +9,14 @@ function postSensorData(req,res){
         try{
             sensordata_model.create(data)
         }catch(e){
-            console.log('Data could not be save to the database\n',e)
+            console.log('Data could not be save to the database\n',e);
         }
-        res.status(200).send("🚀 Data Received By Server")
+        res.status(200).send("🚀 Data Received By Server");
 
     }else{
         res.status(501).send("☄️ Data was not received by Server")
     }
 }
 
-module.exports = postSensorData
+module.exports = postSensorData;
+
