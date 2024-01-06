@@ -87,13 +87,13 @@ async function getData(){
         // })
         console.log(data)
             if(data){
-                // var temperatureData = data.temperature;
-                // var gasData = data.gas;
-                // var waterLevelData = data.waterlevel;
+                var x = data.tilt.x;
+                var y = data.tilt.y;
+                var z = data.tilt.z;
                 // document.getElementById('temperatureValue').textContent = `Temperature: ${temperatureData} °C`;
                 // document.getElementById('gasValue').textContent = `Gas Level: ${gasData} ppm`;
                 // document.getElementById('waterLevelValue').textContent = `Water Level: ${waterLevelData} cm`;
-                var tiltData = data.tilt;
+                var tiltData = `${x} , ${y} , ${z}`;
 
                 document.querySelector('.tilt').textContent = tiltData
 
