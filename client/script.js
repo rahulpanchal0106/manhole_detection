@@ -129,8 +129,8 @@ async function getData(){
                 const animate = ()=>{
                     requestAnimationFrame(animate)
 
-                    const pitchRadians = THREE.MathUtils.degToRad(pitch);
-                    const rollRadians = THREE.MathUtils.degToRad(roll);
+                    const pitchRadians = THREE.MathUtils.degToRad(roll);
+                    const rollRadians = THREE.MathUtils.degToRad(pitch);
 
                     cylinder.rotation.x = pitchRadians;
                     cylinder.rotation.y = rollRadians;
