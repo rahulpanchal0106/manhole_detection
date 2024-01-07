@@ -11,3 +11,4 @@ async function getSensorData (req,res){
 }
 
 module.exports = getSensorData
+

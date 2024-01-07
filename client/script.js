@@ -34,7 +34,28 @@
 //     .catch((err)=>{
 //         console.log(err)
 //     })
-// })
+// });
+
+const scene = new THREE.Scene();
+
+const camera = new THREE.PerspectiveCamera(50,2/1,.1,1000);
+camera.position.z = 15;
+
+const renderer = new THREE.WebGLRenderer();
+renderer.setSize(500,300);
+const lidContainer = document.querySelector('.lid-container')
+lidContainer.appendChild(renderer.domElement)
+
+const geometry = new THREE.CylinderGeometry(2,2,7,50);
+const material = new THREE.MeshBasicMaterial({
+    color:'#8bc34a'
+});
+const cylinder = new THREE.Mesh(geometry,material);
+
+scene.add(cylinder);
+
+
+
 
 document.addEventListener('DOMContentLoaded',function () {
     setInterval(async function () {
@@ -97,6 +118,16 @@ async function getData(){
 
                 const alertList = document.querySelector('#alertList')
                 const indicator = document.querySelector('#indicator')
+                const animate = ()=>{
+                    requestAnimationFrame(animate)
+
+                    cylinder.rotation.x = pitch;
+                    cylinder.rotation.y = roll;
+
+                    renderer.render(scene,camera)
+                }
+                
+                animate();
                 if(pitch>=25 || pitch<=-25 || roll>=15 || roll<=-15){
                     console.log('Tilted');
                     indicator.style.backgroundColor="red";
