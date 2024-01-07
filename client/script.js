@@ -40,7 +40,8 @@ const scene = new THREE.Scene();
 scene.background= new THREE.Color(0xffffff);
 
 const camera = new THREE.PerspectiveCamera(50,2/1,.1,1000);
-camera.position.z = 15;
+camera.position.set(0, 0, 20);  
+camera.lookAt(0, 0, 0); 
 
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(500,300);
@@ -131,16 +132,18 @@ async function getData(){
                 const alertList = document.querySelector('#alertList')
                 const indicator = document.querySelector('#indicator')
                 const animate = ()=>{
-                    requestAnimationFrame(animate)
-
+                    
                     const pitchRadians = THREE.MathUtils.degToRad(roll);
                     const rollRadians = THREE.MathUtils.degToRad(pitch);
-
-                    cylinder.rotation.x = pitchRadians;
-                    cylinder.rotation.y = rollRadians;
-
-
+                    
+                    cylinder.rotation.set(pitchRadians, rollRadians,1);
+                    // cylinder.rotation.y = rollRadians;
+                    
+                    // cylinder.rotation.x = 0
+                    // cylinder.rotation.y = 10
                     renderer.render(scene,camera);
+                    
+                    requestAnimationFrame(animate)
                 }
                 
                 animate();
