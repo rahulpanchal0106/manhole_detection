@@ -4,9 +4,9 @@ const sensordata_schema = mongoose.Schema({
     tilt:{
         type:Object
     },
-    // waterlevel:{
-    //     type:Number
-    // },
+    dht:{
+        type:Object
+    },
     // gas:{
     //     type:Number
     // }

@@ -43,8 +43,10 @@ camera.position.z = 15;
 
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(500,300);
+const rendered_obj = renderer.domElement;
+rendered_obj.style.width="95vw";
 const lidContainer = document.querySelector('.lid-container')
-lidContainer.appendChild(renderer.domElement)
+lidContainer.appendChild(rendered_obj)
 
 const geometry = new THREE.CylinderGeometry(3,3,1,50);
 const material = new THREE.MeshPhongMaterial({
