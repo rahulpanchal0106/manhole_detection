@@ -44,7 +44,7 @@ camera.position.z = 15;
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(500,300);
 const rendered_obj = renderer.domElement;
-rendered_obj.style.width="95vw";
+rendered_obj.style.width="85vw";
 const lidContainer = document.querySelector('.lid-container')
 lidContainer.appendChild(rendered_obj)
 
