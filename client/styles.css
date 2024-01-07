@@ -16,7 +16,7 @@ body {
 }
 .lid-container{
     width: 70%;
-    
+
 }
 
 .alert-container {
@@ -57,3 +57,33 @@ h2 {
     height: 20px;
     border-radius: 50%;
 }
+#alert-indicator{
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+#alert-indicator-parent{
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+}
+
+#thermometerSVG{
+    width: 80%;
+}
+#thermo-temp{
+    font-size: 1.4em;
+    fill: white;
+}
+#topThermo{
+    fill: rgb(227, 56, 56);
+}
+/* #thermometerLineBody{
+    transform: rotate(180deg);
+} */
+
+/* .outer_thermo{
+    transform: translateX(523px)
+} */

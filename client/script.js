@@ -1,46 +1,8 @@
-// document.querySelector('#send').addEventListener('click',(e)=>{
-//     e.preventDefault();
-//     let temp = document.querySelector('#temp').value
-//     let gas = document.querySelector('#gas').value
-//     let water = document.querySelector('#water').value
-
-//     const sensorData = {
-//         "temperature": temp,
-//         "gas": gas,
-//         "waterlevel" : water
-//     }
-
-// const payload = {
-//     "tilt" : {
-//         "x":x,
-//         "y":y,
-//         "z":z
-//     }
-// }
-    
-//     fetch('/sensordata',{
-//         method:'POST',
-//         headers:{
-//             'Content-Type':'application/json'
-//         },
-//         body:JSON.stringify(sensorData)
-//     })
-//     .then((res)=>{
-//         return res.json()
-//     })
-//     .then((data)=>{
-//         console.log(data)
-//     })
-//     .catch((err)=>{
-//         console.log(err)
-//     })
-// });
-
 const scene = new THREE.Scene();
 scene.background= new THREE.Color(0xffffff);
 
-const camera = new THREE.PerspectiveCamera(50,2/1,.1,1000);
-camera.position.set(0, 0, 20);  
+const camera = new THREE.PerspectiveCamera(50,2/1,0.1,1000);
+camera.position.set(0, 0, 100);  
 camera.lookAt(0, 0, 0); 
 
 const renderer = new THREE.WebGLRenderer();
@@ -53,15 +15,15 @@ rendered_obj.style.width="85vw";
 const lidContainer = document.querySelector('.lid-container')
 lidContainer.appendChild(rendered_obj)
 
-const geometry = new THREE.CylinderGeometry(3,3,1,50);
+const geometry = new THREE.CylinderGeometry(30,30,5,100);
 const material = new THREE.MeshPhongMaterial({
-    color: '#8bc34a',
+    color: '#0d6efd',
     shininess: 100
 });
 
 const directionalLight = new THREE.DirectionalLight(0xffffff, 4);
-directionalLight.position.set(1, 0, 2);
-scene.add(directionalLight);
+directionalLight.position.set(10, 10, 10);
+scene.add(directionalLight);    
 
 const cylinder = new THREE.Mesh(geometry,material);
 
@@ -72,36 +34,6 @@ scene.add(cylinder);
 
 document.addEventListener('DOMContentLoaded',function () {
     setInterval(async function () {
-        
-        
-        // await fetch('/sensordata')
-        // .then((res)=>{
-        //     return res.json()
-        // })
-        // .then((data)=>{
-        //     console.log(data)
-        //     if(data){
-        //         var temperatureData = data.temperature;
-        //         var gasData = data.gas;
-        //         var waterLevelData = data.waterlevel;
-        //         document.getElementById('temperatureValue').textContent = `Temperature: ${temperatureData} °C`;
-        //         document.getElementById('gasValue').textContent = `Gas Level: ${gasData} ppm`;
-        //         document.getElementById('waterLevelValue').textContent = `Water Level: ${waterLevelData} cm`;
-        //     }else{
-        //         document.getElementById('temperatureValue').textContent = `Temperature: null °C`;
-        //         document.getElementById('gasValue').textContent = `Gas Level: null ppm`;
-        //         document.getElementById('waterLevelValue').textContent = `Water Level: null cm`;
-        //     }
-
-        //     // Update the alerts list
-        //     var alerts = getAlerts(temperatureData,waterLevelData,gasData);
-        //     updateAlertsList(alerts);
-
-        // })
-        // .catch((err)=>{
-        //     console.log('getsensordata error\n',err)
-        // })
-
         getData()
         
     }, 2000);
@@ -113,40 +45,47 @@ async function getData(){
         return res.json()
     })
     .then((data)=>{
-        // console.log(data)
-        // data.forEach(doc=>{
-        //     console.log(`temp: ${doc.temperature}`)
-        //     console.log(`waterlevel: ${doc.waterlevel}`)
-        //     console.log(`gas: ${doc.gas}`)
-        // })
         console.log(data)
             if(data){
                 var pitch = data.tilt.pitch;
                 var roll = data.tilt.roll;
-                // var z = data.tilt.z;
-                // document.getElementById('temperatureValue').textContent = `Temperature: ${temperatureData} °C`;
-                // document.getElementById('gasValue').textContent = `Gas Level: ${gasData} ppm`;
-                // document.getElementById('waterLevelValue').textContent = `Water Level: ${waterLevelData} cm`;
-                var tiltData = `tilt data: ${pitch} , ${roll}`;
+                var yaw = 0;
+                var temperature = data.dht.temperature;
+                var humidity = data.dht.humidity;
 
-                const alertList = document.querySelector('#alertList')
-                const indicator = document.querySelector('#indicator')
+                const alertList = document.querySelector('#alertList');
+                const indicator = document.querySelector('#indicator');
+
                 const animate = ()=>{
                     
-                    const pitchRadians = THREE.MathUtils.degToRad(roll);
-                    const rollRadians = THREE.MathUtils.degToRad(pitch);
-                    
-                    cylinder.rotation.set(pitchRadians, rollRadians,1);
+                    const pitchRadians = THREE.MathUtils.degToRad(pitch);
+                    const rollRadians = THREE.MathUtils.degToRad(roll);
+                    yaw = Math.atan2(Math.sin(rollRadians), Math.cos(pitchRadians) * Math.cos(rollRadians));
+                    const yawRadians = THREE.MathUtils.degToRad(yaw);
+
+                    // cylinder.rotation.set(rollRadians, pitchRadians,yawRadians);
+                    // cylinder.rotation.set(pitch,roll, yaw);
+                    // cylinder.rotation.set(THREE.MathUtils.degToRad(pitch), THREE.MathUtils.degToRad(roll), THREE.MathUtils.degToRad(yaw));
+
+                    // cylinder.rotation.set(10, 10, 0);
                     // cylinder.rotation.y = rollRadians;
                     
-                    // cylinder.rotation.x = 0
-                    // cylinder.rotation.y = 10
+                    cylinder.rotation.x = rollRadians;
+                    cylinder.rotation.y = yawRadians;
+                    cylinder.rotation.z = pitchRadians;
                     renderer.render(scene,camera);
                     
                     requestAnimationFrame(animate)
                 }
                 
+                const updateThermometerHeight = (height) => {
+                    const thermometerLineBody = document.getElementById('thermometerLineBody');
+                    document.querySelector('#thermo-temp').innerHTML=`${height}&deg;`;
+                    thermometerLineBody.setAttribute('width',5*(100-height));  
+                };
+
                 animate();
+                updateThermometerHeight(temperature);
                 if(pitch>=25 || pitch<=-25 || roll>=15 || roll<=-15){
                     console.log('Tilted');
                     indicator.style.backgroundColor="red";
@@ -157,19 +96,19 @@ async function getData(){
                     alertList.innerHTML="Undisturbed"
                 }
 
+                if(temperature>=60){
+                    console.log("Temperature is above 60deg cel");
+                    alertList.innerHTML+=`Temperature above 60&deg;`
+                }
+                var tiltData = `tilt data: ${pitch} , ${roll} , ${yaw}`;
+                var dhtData = `dht11 data: ${temperature} deg celcius , ${humidity}%`
                 document.querySelector('#tilt').textContent = tiltData
+                document.querySelector('#dht').textContent = dhtData
 
             }else{
-                // document.getElementById('temperatureValue').textContent = `Temperature: null °C`;
-                // document.getElementById('gasValue').textContent = `Gas Level: null ppm`;
-                // document.getElementById('waterLevelValue').textContent = `Water Level: null cm`;
-
+                document.querySelector('#dht').textContent = 'No data from server'
                 document.querySelector('#tilt').textContent = 'No data from server'
             }
-
-            // Update the alerts list
-        //var alerts = getAlerts(temperatureData,waterLevelData,gasData);
-        //updateAlertsList();
 
         return data
     })
@@ -181,15 +120,7 @@ async function getData(){
 // Function to get random alerts (replace with your actual implementation)
 function getAlerts() {
     return Math.random() > 0.8 ? ['Manhole Overflow', 'High Gas Level'] : [];
-    // if(waterlevel>20){
-    //     return 'Manhole Overflow'
-    // }else if(gas>50){
-    //     return 'high gas level'
-    // }else if(temp>60){
-    //     return 'High temperature'
-    // }else{
-    //     return 'no alerts....'
-    // }
+
 }
 
 // Function to update the alerts list

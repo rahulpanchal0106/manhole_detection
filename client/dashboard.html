@@ -9,34 +9,74 @@
 </head>
 <body>
 
+    <h1>Monitoring Dashboard</h1>
     
-    <div class="container">
-        <h1>Monitoring Dashboard</h1>
-        <div class="alert-container">
-            <h2>Alerts:</h2>
-            <div id="indicator"></div>
-            <ul id="alertList">
-                <!-- Alert messages will be dynamically added here -->
-            </ul>
-            <br>
-            <h6>
-                Instead of this section, an SMS system will be implemented using Twilio (which provides an API for sending SMS to a particular telephone number).
-            </h6>
-        </div>
-        <div class="data-container">
-            <h2>SensorData:</h2>
-            <label for="tilt">Tilt</label>
-            <div class="lid-container">
-                <!-- The container for your 3D scene will go here -->
-            </div>
-            <p id="tilt">Loading...</p>
+   
+        <div class="container text-center">
+            <div class="row">
+              <div class="col" class="container text-center" id="alert-indicator-parent">
+                <h2>Alerts:</h2>
+                <div class="row" id="alert-indicator">
+                    <div class="col" >
+                        <div id="indicator"></div>
+                    </div>
+                    <div class="col">
+                        <ul id="alertList"></ul>
+                    </div>
+                    
+                  </div>
+              </div>
+              <div class="col" class="data-container">
+                <h2>SensorData:</h2>
 
-            <label for="dht"></label>
-            <p id="dht"></p>
+                <label for="tilt">Tilt</label>
+                <div class="lid-container">
+                    <!-- The container for your 3D scene will go here -->
+                </div>
+                <p id="tilt">Loading...</p>
+
+                <label for="dht">DHT11</label>
+                <div class="dht11-visualization">
+                    <!-- <svg id="thermometerSVG" xmlns="http://www.w3.org/2000/svg" width="619" height="129.9" viewBox="0 0 619 129.9">
+                        <style>
+                            .core{fill: #EE3A43;} .st0{fill:#E6E7E8;} .st1{fill:#EE3A43; transform: rotateY(55deg);} .st2{fill:#FFFFFF;} .st3{fill:none;stroke:#D1D3D4;stroke-width:7;stroke-miterlimit:10;}
+                        </style>
+                        <path id="outer_thermo" d="M552 3.5c-17.4 0-34.1 6.7-46 19.7H44.8c-22.5 0-41.3 17.3-41.3 39.3v4.8c0 10.7 4.7 21.4 12.5 29 7.7 7.6 18.1 12 28.8 12h461.7c11.8 11 28.2 18.2 45.5 18.2 35 0 63.5-27.6 63.5-61.4S587 3.5 552 3.5z" class="st0"/>
+                        <rect id="thermometerLineBody" width="500" height="42" x="140%" y="44.4" transform="rotate(180)" class="st1"/>
+                        <circle id="thermometerLineHead" cx="89%" cy="64.9" r="20" class="st1"/>
+                        <circle cx="89%" cy="64.9" r="40" class="core"/>
+                        <path id="outer_thermo" d="M552 3.3c-17.4 0-34.1 6.7-46 19.7H44.8C22.3 23 3.5 40.3 3.5 62.3v4.8c0 10.7 4.7 21.4 12.5 29 7.7 7.6 18.1 12 28.8 12h461.7c11.8 11 28.2 18.2 45.5 18.2 35 0 63.5-27.6 63.5-61.4S587 3.3 552 3.3zm0 98.1c-14.4 0-27-7.5-33.6-18.5H44.8c-8.4 0-15.8-7.1-15.8-15.5v-4.8c0-8.3 7.4-14.8 15.8-14.8H518c6.5-11 19.3-19.4 33.9-19.4 21.3 0 38.5 16.3 38.5 36.4.1 20.3-17.2 36.6-38.4 36.6z" class="st2"/>
+                        <path id="outer_thermo" d="M552 3.5c-17.4 0-34.1 6.7-46 19.7H44.8c-22.5 0-41.3 17.3-41.3 39.3v4.8c0 10.7 4.7 21.4 12.5 29 7.7 7.6 18.1 12 28.8 12h461.7c11.8 11 28.2 18.2 45.5 18.2 35 0 63.5-27.6 63.5-61.4S587 3.5 552 3.5z" class="st3"/>
+                    </svg> -->
+                    <svg id="thermometerSVG" xmlns="http://www.w3.org/2000/svg" width="619" height="129.9" viewBox="0 0 619 129.9">
+                        <style>
+                          .st0{fill:#E6E7E8;} .st1{fill:#E6E7E8;} .st2{fill:#FFFFFF;} .st3{fill:none;stroke:#D1D3D4;stroke-width:7;stroke-miterlimit:10;}
+                        </style>
+                        <path id="topThermo" d="M552 3.5c-17.4 0-34.1 6.7-46 19.7H44.8c-22.5 0-41.3 17.3-41.3 39.3v4.8c0 10.7 4.7 21.4 12.5 29 7.7 7.6 18.1 12 28.8 12h461.7c11.8 11 28.2 18.2 45.5 18.2 35 0 63.5-27.6 63.5-61.4S587 3.5 552 3.5z" class="st0"/>
+                        <rect id="thermometerLineBody" width="0" height="42" x="27" y="44.4" class="st1"/>
+                        <!-- <circle id="thermometerLineHead" cx="40" cy="64.9" r="20" class="st1"/> -->
+                        <!-- <circle id="thermometerCore"  cx="89%" cy="64.9" r="36" class="core"/> -->
+                        <text x="89%" y="64" id="thermo-temp" text-anchor="middle" alignment-baseline="middle" font-size="20">loading</text>
+                        <path d="M552 3.3c-17.4 0-34.1 6.7-46 19.7H44.8C22.3 23 3.5 40.3 3.5 62.3v4.8c0 10.7 4.7 21.4 12.5 29 7.7 7.6 18.1 12 28.8 12h461.7c11.8 11 28.2 18.2 45.5 18.2 35 0 63.5-27.6 63.5-61.4S587 3.3 552 3.3zm0 98.1c-14.4 0-27-7.5-33.6-18.5H44.8c-8.4 0-15.8-7.1-15.8-15.5v-4.8c0-8.3 7.4-14.8 15.8-14.8H518c6.5-11 19.3-19.4 33.9-19.4 21.3 0 38.5 16.3 38.5 36.4.1 20.3-17.2 36.6-38.4 36.6z" class="st2"/>
+                        <path d="M552 3.5c-17.4 0-34.1 6.7-46 19.7H44.8c-22.5 0-41.3 17.3-41.3 39.3v4.8c0 10.7 4.7 21.4 12.5 29 7.7 7.6 18.1 12 28.8 12h461.7c11.8 11 28.2 18.2 45.5 18.2 35 0 63.5-27.6 63.5-61.4S587 3.5 552 3.5z" class="st3"/>
+                      </svg> 
+                </div>
+                <p id="dht">Loading...</p>
+              </div>
+              <div class="col">
+                
+              </div>
+            </div>
+          
+        <!-- <div >
+            
+        </div>
+        <div >
+            
         </div>
         <h4>The client constantly pings the server (every 2s) to serve the last read sensor data sent from the microcontroller</h4>
         <h5>Here instead of showing plain text, I'll implement more graphics that visualize these values</h5>
-        <h5>Besides this Dashboard, we can have another section where all the available microcontrollers are shown, and by navigating through them, their sensor data can be monitored</h5>
+        <h5>Besides this Dashboard, we can have another section where all the available microcontrollers are shown, and by navigating through them, their sensor data can be monitored</h5> -->
     </div>
     <!-- Your script.js file -->
     <script src="./three.js"></script>
