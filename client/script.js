@@ -47,10 +47,15 @@ const lidContainer = document.querySelector('.lid-container')
 lidContainer.appendChild(renderer.domElement)
 
 const geometry = new THREE.CylinderGeometry(3,3,1,50);
-const material = new THREE.MeshBasicMaterial({
-    color:'#8bc34a',
-    wireframe: true
+const material = new THREE.MeshPhongMaterial({
+    color: '#8bc34a',
+    shininess: 100
 });
+
+const directionalLight = new THREE.DirectionalLight(0xffffff, 4);
+directionalLight.position.set(1, 0, 2);
+scene.add(directionalLight);
+
 const cylinder = new THREE.Mesh(geometry,material);
 
 scene.add(cylinder);
