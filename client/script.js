@@ -48,7 +48,8 @@ lidContainer.appendChild(renderer.domElement)
 
 const geometry = new THREE.CylinderGeometry(2,2,7,50);
 const material = new THREE.MeshBasicMaterial({
-    color:'#8bc34a'
+    color:'#8bc34a',
+    wireframe: true
 });
 const cylinder = new THREE.Mesh(geometry,material);
 
