@@ -37,14 +37,18 @@
 // });
 
 const scene = new THREE.Scene();
+scene.background= new THREE.Color(0xffffff);
 
 const camera = new THREE.PerspectiveCamera(50,2/1,.1,1000);
 camera.position.z = 15;
 
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(500,300);
+
 const rendered_obj = renderer.domElement;
+
 rendered_obj.style.width="85vw";
+// rendered_obj.style.backgroundColor="white"
 const lidContainer = document.querySelector('.lid-container')
 lidContainer.appendChild(rendered_obj)
 
@@ -122,7 +126,7 @@ async function getData(){
                 // document.getElementById('temperatureValue').textContent = `Temperature: ${temperatureData} °C`;
                 // document.getElementById('gasValue').textContent = `Gas Level: ${gasData} ppm`;
                 // document.getElementById('waterLevelValue').textContent = `Water Level: ${waterLevelData} cm`;
-                var tiltData = `${pitch} , ${roll}`;
+                var tiltData = `tilt data: ${pitch} , ${roll}`;
 
                 const alertList = document.querySelector('#alertList')
                 const indicator = document.querySelector('#indicator')
@@ -135,7 +139,8 @@ async function getData(){
                     cylinder.rotation.x = pitchRadians;
                     cylinder.rotation.y = rollRadians;
 
-                    renderer.render(scene,camera)
+
+                    renderer.render(scene,camera);
                 }
                 
                 animate();
