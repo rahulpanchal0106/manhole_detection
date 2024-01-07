@@ -10,7 +10,7 @@ renderer.setSize(500,300);
 
 const rendered_obj = renderer.domElement;
 
-rendered_obj.style.width="85vw";
+rendered_obj.style.width="80vw";
 // rendered_obj.style.backgroundColor="white"
 const lidContainer = document.querySelector('.lid-container')
 lidContainer.appendChild(rendered_obj)
@@ -84,6 +84,18 @@ async function getData(){
                     thermometerLineBody.setAttribute('width',5*(100-height));  
                 };
 
+                const gaugeFill = document.getElementById('gaugeFill');
+
+                function updateGauge(value) {
+                    // const dashArray = `${value} ${100 - value}`;
+                    // gaugeFill.setAttribute('stroke-dasharray', dashArray);
+                    const humidityText = document.getElementById('humidityText');
+                    humidityText.textContent = `${value}%`;
+                }
+
+                updateGauge(humidity);
+
+
                 animate();
                 updateThermometerHeight(temperature);
                 if(pitch>=25 || pitch<=-25 || roll>=15 || roll<=-15){
@@ -101,7 +113,7 @@ async function getData(){
                     alertList.innerHTML+=`Temperature above 60&deg;`
                 }
                 var tiltData = `tilt data: ${pitch} , ${roll} , ${yaw}`;
-                var dhtData = `dht11 data: ${temperature} deg celcius , ${humidity}%`
+                var dhtData = `dht11 data: ${temperature}\u2103, ${humidity}%`
                 document.querySelector('#tilt').textContent = tiltData
                 document.querySelector('#dht').textContent = dhtData
 

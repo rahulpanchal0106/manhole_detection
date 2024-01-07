@@ -30,42 +30,64 @@
                 <h2>SensorData:</h2>
 
                 <label for="tilt">Tilt</label>
-                <div class="lid-container">
-                    <!-- The container for your 3D scene will go here -->
-                </div>
+                <div class="lid-container"></div>
                 <p id="tilt">Loading...</p>
 
                 <label for="dht">DHT11</label>
-                <div class="dht11-visualization">
-                    <!-- <svg id="thermometerSVG" xmlns="http://www.w3.org/2000/svg" width="619" height="129.9" viewBox="0 0 619 129.9">
-                        <style>
-                            .core{fill: #EE3A43;} .st0{fill:#E6E7E8;} .st1{fill:#EE3A43; transform: rotateY(55deg);} .st2{fill:#FFFFFF;} .st3{fill:none;stroke:#D1D3D4;stroke-width:7;stroke-miterlimit:10;}
-                        </style>
-                        <path id="outer_thermo" d="M552 3.5c-17.4 0-34.1 6.7-46 19.7H44.8c-22.5 0-41.3 17.3-41.3 39.3v4.8c0 10.7 4.7 21.4 12.5 29 7.7 7.6 18.1 12 28.8 12h461.7c11.8 11 28.2 18.2 45.5 18.2 35 0 63.5-27.6 63.5-61.4S587 3.5 552 3.5z" class="st0"/>
-                        <rect id="thermometerLineBody" width="500" height="42" x="140%" y="44.4" transform="rotate(180)" class="st1"/>
-                        <circle id="thermometerLineHead" cx="89%" cy="64.9" r="20" class="st1"/>
-                        <circle cx="89%" cy="64.9" r="40" class="core"/>
-                        <path id="outer_thermo" d="M552 3.3c-17.4 0-34.1 6.7-46 19.7H44.8C22.3 23 3.5 40.3 3.5 62.3v4.8c0 10.7 4.7 21.4 12.5 29 7.7 7.6 18.1 12 28.8 12h461.7c11.8 11 28.2 18.2 45.5 18.2 35 0 63.5-27.6 63.5-61.4S587 3.3 552 3.3zm0 98.1c-14.4 0-27-7.5-33.6-18.5H44.8c-8.4 0-15.8-7.1-15.8-15.5v-4.8c0-8.3 7.4-14.8 15.8-14.8H518c6.5-11 19.3-19.4 33.9-19.4 21.3 0 38.5 16.3 38.5 36.4.1 20.3-17.2 36.6-38.4 36.6z" class="st2"/>
-                        <path id="outer_thermo" d="M552 3.5c-17.4 0-34.1 6.7-46 19.7H44.8c-22.5 0-41.3 17.3-41.3 39.3v4.8c0 10.7 4.7 21.4 12.5 29 7.7 7.6 18.1 12 28.8 12h461.7c11.8 11 28.2 18.2 45.5 18.2 35 0 63.5-27.6 63.5-61.4S587 3.5 552 3.5z" class="st3"/>
-                    </svg> -->
-                    <svg id="thermometerSVG" xmlns="http://www.w3.org/2000/svg" width="619" height="129.9" viewBox="0 0 619 129.9">
-                        <style>
-                          .st0{fill:#E6E7E8;} .st1{fill:#E6E7E8;} .st2{fill:#FFFFFF;} .st3{fill:none;stroke:#D1D3D4;stroke-width:7;stroke-miterlimit:10;}
-                        </style>
-                        <path id="topThermo" d="M552 3.5c-17.4 0-34.1 6.7-46 19.7H44.8c-22.5 0-41.3 17.3-41.3 39.3v4.8c0 10.7 4.7 21.4 12.5 29 7.7 7.6 18.1 12 28.8 12h461.7c11.8 11 28.2 18.2 45.5 18.2 35 0 63.5-27.6 63.5-61.4S587 3.5 552 3.5z" class="st0"/>
-                        <rect id="thermometerLineBody" width="0" height="42" x="27" y="44.4" class="st1"/>
-                        <!-- <circle id="thermometerLineHead" cx="40" cy="64.9" r="20" class="st1"/> -->
-                        <!-- <circle id="thermometerCore"  cx="89%" cy="64.9" r="36" class="core"/> -->
-                        <text x="89%" y="64" id="thermo-temp" text-anchor="middle" alignment-baseline="middle" font-size="20">loading</text>
-                        <path d="M552 3.3c-17.4 0-34.1 6.7-46 19.7H44.8C22.3 23 3.5 40.3 3.5 62.3v4.8c0 10.7 4.7 21.4 12.5 29 7.7 7.6 18.1 12 28.8 12h461.7c11.8 11 28.2 18.2 45.5 18.2 35 0 63.5-27.6 63.5-61.4S587 3.3 552 3.3zm0 98.1c-14.4 0-27-7.5-33.6-18.5H44.8c-8.4 0-15.8-7.1-15.8-15.5v-4.8c0-8.3 7.4-14.8 15.8-14.8H518c6.5-11 19.3-19.4 33.9-19.4 21.3 0 38.5 16.3 38.5 36.4.1 20.3-17.2 36.6-38.4 36.6z" class="st2"/>
-                        <path d="M552 3.5c-17.4 0-34.1 6.7-46 19.7H44.8c-22.5 0-41.3 17.3-41.3 39.3v4.8c0 10.7 4.7 21.4 12.5 29 7.7 7.6 18.1 12 28.8 12h461.7c11.8 11 28.2 18.2 45.5 18.2 35 0 63.5-27.6 63.5-61.4S587 3.5 552 3.5z" class="st3"/>
-                      </svg> 
+                <div class="dht11-visualization" class="d-flex-column">
+                    <div id="temp">
+                        <svg id="thermometerSVG" xmlns="http://www.w3.org/2000/svg" width="619" height="129.9" viewBox="0 0 619 129.9">
+                            <style>
+                                .st0 {
+                                    fill: #E6E7E8;
+                                }
+                        
+                                .st1 {
+                                    fill: #E6E7E8;
+                                }
+                        
+                                .st2 {
+                                    fill: #FFFFFF;
+                                }
+                        
+                                .st3 {
+                                    fill: none;
+                                    stroke: #D1D3D4;
+                                    stroke-width: 7;
+                                    stroke-miterlimit: 10;
+                                }
+                            </style>
+                            <path id="topThermo"
+                                d="M552 3.5c-17.4 0-34.1 6.7-46 19.7H44.8c-22.5 0-41.3 17.3-41.3 39.3v4.8c0 10.7 4.7 21.4 12.5 29 7.7 7.6 18.1 12 28.8 12h461.7c11.8 11 28.2 18.2 45.5 18.2 35 0 63.5-27.6 63.5-61.4S587 3.5 552 3.5z"
+                                class="st0" />
+                            <rect id="thermometerLineBody" width="0" height="42" x="27" y="44.4" class="st1" />
+                            <text x="89%" y="64" id="thermo-temp" text-anchor="middle" alignment-baseline="middle" font-size="20">loading</text>
+                            <path
+                                d="M552 3.3c-17.4 0-34.1 6.7-46 19.7H44.8C22.3 23 3.5 40.3 3.5 62.3v4.8c0 10.7 4.7 21.4 12.5 29 7.7 7.6 18.1 12 28.8 12h461.7c11.8 11 28.2 18.2 45.5 18.2 35 0 63.5-27.6 63.5-61.4S587 3.3 552 3.3zm0 98.1c-14.4 0-27-7.5-33.6-18.5H44.8c-8.4 0-15.8-7.1-15.8-15.5v-4.8c0-8.3 7.4-14.8 15.8-14.8H518c6.5-11 19.3-19.4 33.9-19.4 21.3 0 38.5 16.3 38.5 36.4.1 20.3-17.2 36.6-38.4 36.6z"
+                                class="st2" />
+                            <path
+                                d="M552 3.5c-17.4 0-34.1 6.7-46 19.7H44.8c-22.5 0-41.3 17.3-41.3 39.3v4.8c0 10.7 4.7 21.4 12.5 29 7.7 7.6 18.1 12 28.8 12h461.7c11.8 11 28.2 18.2 45.5 18.2 35 0 63.5-27.6 63.5-61.4S587 3.5 552 3.5z"
+                                class="st3" />
+                        </svg>
+                    </div> 
+                    <div id="humidity">
+                          
+                        <div id="humidity_indicator">
+                            <p id="humidityText"></p>
+                            <p>Humidity <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-moisture" viewBox="0 0 16 16">
+                                <path d="M13.5 0a.5.5 0 0 0 0 1H15v2.75h-.5a.5.5 0 0 0 0 1h.5V7.5h-1.5a.5.5 0 0 0 0 1H15v2.75h-.5a.5.5 0 0 0 0 1h.5V15h-1.5a.5.5 0 0 0 0 1h2a.5.5 0 0 0 .5-.5V.5a.5.5 0 0 0-.5-.5zM7 1.5l.364-.343a.5.5 0 0 0-.728 0l-.002.002-.006.007-.022.023-.08.088a29 29 0 0 0-1.274 1.517c-.769.983-1.714 2.325-2.385 3.727C2.368 7.564 2 8.682 2 9.733 2 12.614 4.212 15 7 15s5-2.386 5-5.267c0-1.05-.368-2.169-.867-3.212-.671-1.402-1.616-2.744-2.385-3.727a29 29 0 0 0-1.354-1.605l-.022-.023-.006-.007-.002-.001zm0 0-.364-.343zm-.016.766L7 2.247l.016.019c.24.274.572.667.944 1.144.611.781 1.32 1.776 1.901 2.827H4.14c.58-1.051 1.29-2.046 1.9-2.827.373-.477.706-.87.945-1.144zM3 9.733c0-.755.244-1.612.638-2.496h6.724c.395.884.638 1.741.638 2.496C11 12.117 9.182 14 7 14s-4-1.883-4-4.267"/>
+                              </svg></p>
+                        </div>
+                          
+                          
+                          
+                    </div>
                 </div>
                 <p id="dht">Loading...</p>
               </div>
-              <div class="col">
+              <!-- <div class="col">
                 
-              </div>
+              </div> -->
             </div>
           
         <!-- <div >
@@ -78,10 +100,10 @@
         <h5>Here instead of showing plain text, I'll implement more graphics that visualize these values</h5>
         <h5>Besides this Dashboard, we can have another section where all the available microcontrollers are shown, and by navigating through them, their sensor data can be monitored</h5> -->
     </div>
-    <!-- Your script.js file -->
+    
     <script src="./three.js"></script>
     <script src="./script.js"></script>
-    <!-- Include Bootstrap JS -->
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
