@@ -46,7 +46,7 @@ renderer.setSize(500,300);
 const lidContainer = document.querySelector('.lid-container')
 lidContainer.appendChild(renderer.domElement)
 
-const geometry = new THREE.CylinderGeometry(2,2,7,50);
+const geometry = new THREE.CylinderGeometry(3,3,1,50);
 const material = new THREE.MeshBasicMaterial({
     color:'#8bc34a',
     wireframe: true
@@ -122,8 +122,11 @@ async function getData(){
                 const animate = ()=>{
                     requestAnimationFrame(animate)
 
-                    cylinder.rotation.x = pitch;
-                    cylinder.rotation.y = roll;
+                    const pitchRadians = THREE.MathUtils.degToRad(pitch);
+                    const rollRadians = THREE.MathUtils.degToRad(roll);
+
+                    cylinder.rotation.x = pitchRadians;
+                    cylinder.rotation.y = rollRadians;
 
                     renderer.render(scene,camera)
                 }
