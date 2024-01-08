@@ -98,7 +98,7 @@ async function getData(){
 
                 animate();
                 updateThermometerHeight(temperature);
-                if(pitch>=25 || pitch<=-25 || roll>=15 || roll<=-15){
+                if(pitch>=17 || pitch<=-17 || roll>=15 || roll<=-15){
                     console.log('Tilted');
                     indicator.style.backgroundColor="red";
                     alertList.innerHTML=`Disturbed`;
