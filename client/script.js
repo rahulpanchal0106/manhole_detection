@@ -60,8 +60,8 @@ async function getData(){
                     
                     const pitchRadians = THREE.MathUtils.degToRad(pitch);
                     const rollRadians = THREE.MathUtils.degToRad(roll);
-                    yaw = Math.atan2(Math.sin(rollRadians), Math.cos(pitchRadians) * Math.cos(rollRadians));
-                    const yawRadians = THREE.MathUtils.degToRad(yaw);
+                    //yaw = Math.atan2(Math.sin(rollRadians), Math.cos(pitchRadians) * Math.cos(rollRadians));
+                    //const yawRadians = THREE.MathUtils.degToRad(yaw);
 
                     // cylinder.rotation.set(rollRadians, pitchRadians,yawRadians);
                     // cylinder.rotation.set(pitch,roll, yaw);
@@ -71,7 +71,7 @@ async function getData(){
                     // cylinder.rotation.y = rollRadians;
                     
                     cylinder.rotation.x = rollRadians;
-                    cylinder.rotation.y = yawRadians;
+                    //cylinder.rotation.y = yawRadians;
                     cylinder.rotation.z = pitchRadians;
                     renderer.render(scene,camera);
                     
@@ -112,7 +112,7 @@ async function getData(){
                     console.log("Temperature is above 60deg cel");
                     alertList.innerHTML+=`Temperature above 60&deg;`
                 }
-                var tiltData = `tilt data: ${pitch} , ${roll} , ${yaw}`;
+                var tiltData = `tilt data: ${pitch} , ${roll}`;
                 var dhtData = `dht11 data: ${temperature}\u2103, ${humidity}%`
                 document.querySelector('#tilt').textContent = tiltData
                 document.querySelector('#dht').textContent = dhtData
@@ -165,5 +165,3 @@ function updateAlertsList(alerts) {
 
 
 //do something like this on hardware to post the json sensordata to the server
-
-
