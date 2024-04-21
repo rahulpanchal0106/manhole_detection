@@ -117,7 +117,7 @@ function update3DModel(data) {
 
 document.addEventListener('DOMContentLoaded', () => {
     getData();
-    // setInterval(getData, 2000);
+    setInterval(getData, 700);
 });
 
 async function getData() {
