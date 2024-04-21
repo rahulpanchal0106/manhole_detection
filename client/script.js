@@ -7,10 +7,10 @@ camera.lookAt(0, 0, 0);
 
 const containerWidth = 500; // Fixed container width
 const containerHeight = 300;
-const pixelRatio =window.devicePixelRatio
+const pixelRatio = window.devicePixelRatio;
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(containerWidth * pixelRatio, containerHeight * pixelRatio);
-renderer.setPixelRatio(pixelRatio); 
+renderer.setPixelRatio(pixelRatio);
 
 const rendered_obj = renderer.domElement;
 
@@ -24,9 +24,8 @@ rendered_obj.style.height = window.innerWidth < minScreenHeight ? "45vh" : "300p
 // Update size on window resize
 window.addEventListener('resize', () => {
     rendered_obj.style.width = window.innerWidth < minScreenWidth ? "80vw" : "500px";
-    rendered_obj.style.height = window.innerWidth < minScreenHeight ? "80vw" : "300px";
+    rendered_obj.style.height = window.innerWidth < minScreenHeight ? "45vh" : "300px";
 });
-
 
 const lidContainer = document.querySelector('.lid-container')
 lidContainer.appendChild(rendered_obj)
@@ -44,17 +43,6 @@ scene.add(directionalLight);
 const cylinder = new THREE.Mesh(geometry, material);
 scene.add(cylinder);
 
-// Establish WebSocket connection with server
-const socket = io();
-
-socket.on('connect', () => {
-    console.log('Connected to server');
-});
-
-socket.on('sensorData', (data) => {
-    update3DModel(data);
-});
-
 function update3DModel(data) {
     if (data) {
         var pitch = data.tilt.pitch;
@@ -70,18 +58,8 @@ function update3DModel(data) {
 
         const pitchRadians = THREE.MathUtils.degToRad(pitch);
         const rollRadians = THREE.MathUtils.degToRad(roll);
-        //yaw = Math.atan2(Math.sin(rollRadians), Math.cos(pitchRadians) * Math.cos(rollRadians));
-        //const yawRadians = THREE.MathUtils.degToRad(yaw);
-
-        // cylinder.rotation.set(rollRadians, pitchRadians,yawRadians);
-        // cylinder.rotation.set(pitch,roll, yaw);
-        // cylinder.rotation.set(THREE.MathUtils.degToRad(pitch), THREE.MathUtils.degToRad(roll), THREE.MathUtils.degToRad(yaw));
-
-        // cylinder.rotation.set(10, 10, 0);
-        // cylinder.rotation.y = rollRadians;
 
         cylinder.rotation.x = rollRadians;
-        //cylinder.rotation.y = yawRadians;
         cylinder.rotation.z = pitchRadians;
         renderer.render(scene, camera);
 
@@ -98,46 +76,42 @@ function update3DModel(data) {
         const gaugeFill = document.getElementById('gaugeFill');
 
         function updateGauge(value) {
-            // const dashArray = `${value} ${100 - value}`;
-            // gaugeFill.setAttribute('stroke-dasharray', dashArray);
             const humidityText = document.getElementById('humidityText');
             humidityText.textContent = `${value}%`;
         }
 
         updateGauge(humidity);
 
-
         animate();
         updateThermometerHeight(temperature);
         if (pitch >= 17 || pitch <= -17 || roll >= 15 || roll <= -15) {
-            console.log('Tilted');
             indicator.style.backgroundColor = "red";
+            indicator.style.boxShadow = "0px 0px 8px 8px red";
             alertList.innerHTML = `Disturbed`;
         } else {
-            console.log("Not tilted");
             indicator.style.backgroundColor = "green";
+            indicator.style.boxShadow = "0px 0px 8px 8px green";
             alertList.innerHTML = "Undisturbed"
         }
 
         if (temperature >= 45) {
-            console.log("Temperature is above 45deg cel");
             DHTindicator.style.backgroundColor = "red";
+            DHTindicator.style.boxShadow = "0px 0px 8px 8px red";
             DHTalertList.innerHTML = `Temperature above 45&deg;`
-        }else{
-            console.log("Temperature is below 45deg cel");
-            DHTindicator.style.backgroundColor = "blue";
+        } else {
+            DHTindicator.style.backgroundColor = "green";
+            DHTindicator.style.boxShadow = "0px 0px 8px 8px green";
             DHTalertList.innerHTML = `Temperature below 45&deg;`
         }
         var tiltData = `tilt data: ${pitch} , ${roll}`;
         var dhtData = `dht11 data: ${temperature}\u2103, ${humidity}%`
-        document.querySelector('#tilt').textContent = tiltData
-        document.querySelector('#dht').textContent = dhtData
+        document.querySelector('#tilt').innerHTML = tiltData
+        document.querySelector('#dht').innerHTML = dhtData
 
     } else {
-        document.querySelector('#dht').textContent = 'No data from server'
-        document.querySelector('#tilt').textContent = 'No data from server'
+        document.querySelector('#dht').innerHTML = 'No data from server'
+        document.querySelector('#tilt').innerHTML = 'No data from server'
     }
-
     return data
 }
 
@@ -160,7 +134,6 @@ async function getData() {
 // Function to get random alerts (replace with actual implementation)
 function getAlerts() {
     return Math.random() > 0.8 ? ['Manhole Overflow', 'High Gas Level'] : [];
-
 }
 
 // Function to update the alerts list
