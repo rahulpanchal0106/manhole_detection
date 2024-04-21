@@ -62,7 +62,7 @@ async function getData() {
 function update3DModel(data) {
     if (data) {
         var pitch = data.tilt.pitch;
-        var roll = data.tilt.roll;
+        var roll = -data.tilt.roll;
         var temperature = data.dht.temperature;
         var humidity = data.dht.humidity;
 
