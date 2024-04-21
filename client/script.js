@@ -95,3 +95,18 @@ function updateAlertsList(alerts) {
         alertList.appendChild(listItem);
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+//do something like this on hardware to post the json sensordata to the server
+
+
