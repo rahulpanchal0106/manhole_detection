@@ -43,11 +43,26 @@ scene.add(directionalLight);
 const cylinder = new THREE.Mesh(geometry, material);
 scene.add(cylinder);
 
+document.addEventListener('DOMContentLoaded', () => {
+    getData();
+    setInterval(getData, 2000);
+});
+
+async function getData() {
+    await fetch('/sensordata')
+        .then((res) => res.json())
+        .then((data) => {
+            return update3DModel(data);
+        })
+        .catch((err) => {
+            console.log('Error fetching sensor data\n', err);
+        });
+}
+
 function update3DModel(data) {
     if (data) {
         var pitch = data.tilt.pitch;
         var roll = data.tilt.roll;
-        var yaw = 0;
         var temperature = data.dht.temperature;
         var humidity = data.dht.humidity;
 
@@ -81,9 +96,9 @@ function update3DModel(data) {
         }
 
         updateGauge(humidity);
-
         animate();
         updateThermometerHeight(temperature);
+
         if (pitch >= 17 || pitch <= -17 || roll >= 15 || roll <= -15) {
             indicator.style.backgroundColor = "red";
             indicator.style.boxShadow = "0px 0px 8px 8px red";
@@ -113,22 +128,6 @@ function update3DModel(data) {
         document.querySelector('#tilt').innerHTML = 'No data from server'
     }
     return data
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    getData();
-    setInterval(getData, 700);
-});
-
-async function getData() {
-    await fetch('/sensordata')
-        .then((res) => res.json())
-        .then((data) => {
-            return update3DModel(data);
-        })
-        .catch((err) => {
-            console.log('Error fetching sensor data\n', err);
-        });
 }
 
 // Function to get random alerts (replace with actual implementation)
