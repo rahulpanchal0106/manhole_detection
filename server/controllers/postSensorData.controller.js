@@ -1,6 +1,6 @@
 const sensordata_model = require('../models/sensordata.model');
 
-async function postSensorData (req, res) {
+async function postSensorData(req, res) {
     const data = req.body;
     console.log("✨✨\n", data);
 
@@ -8,9 +8,6 @@ async function postSensorData (req, res) {
         try {
             await sensordata_model.create(data);
             console.log('Data saved to the database');
-            
-            // Emit data to connected clients
-            io.emit('sensorData', data);
 
             res.status(200).send("🚀 Data Received By Server");
         } catch (e) {
