@@ -9,19 +9,39 @@
 </head>
 <body>
 
-    <h1>Monitoring Dashboard</h1>
     
-   
-        <div class="container text-center">
+    
+    <div class="container text-center">
+            <h1>Monitoring Dashboard</h1>
             <div class="row">
               <div class="col" class="container text-center" id="alert-indicator-parent">
-                <h2>Alerts:</h2>
+                <h2>Alerts</h2>
                 <div class="row" id="alert-indicator">
-                    <div class="col" >
-                        <div id="indicator"></div>
+                    <div id="disturbance">
+                        <div class="col">
+                            <h3>
+                                Tilt
+                            </h3>
+                        </div>
+                        <div class="col" >
+                            <div id="indicator"></div>
+                        </div>
+                        <div class="col">
+                            <ul id="alertList"></ul>
+                        </div>
                     </div>
-                    <div class="col">
-                        <ul id="alertList"></ul>
+                    <div id="dhtAlerts">
+                        <div class="col">
+                            <h3>
+                                DHT11
+                            </h3>
+                        </div>
+                        <div class="col" >
+                            <div id="DHTindicator"></div>
+                        </div>
+                        <div class="col">
+                            <ul id="DHTalertList"></ul>
+                        </div>
                     </div>
                     
                   </div>

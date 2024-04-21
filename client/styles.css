@@ -15,9 +15,14 @@ body {
 .row{
     display: flex;
     flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
 }
 .container {
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     max-width: 800px;
     margin: 50px auto;
     text-align: center;
@@ -36,6 +41,7 @@ body {
 
 .alert-container {
     margin-top: 20px;
+    height: 100%;
 }
 
 .data-container {
@@ -51,7 +57,7 @@ h2 {
 }
 
 #alertList {
-    list-style: none;
+    list-style:armenian;
     padding: 0;
 }
 
@@ -67,13 +73,14 @@ h2 {
     color: #333;
 }
 
-#indicator{
+#indicator, #DHTindicator{
     width: 20px;
     height: 20px;
     border-radius: 50%;
+    box-shadow: 0px 0px 10px 10px;
 }
 #alert-indicator{
-    width: 50%;
+    width: 100%;
     display: flex;
     justify-content: center;
     text-align: center;
@@ -83,6 +90,8 @@ h2 {
     flex-direction: column;
     align-content: center;
     align-items: center;
+    border: 1px grey solid;
+    border-radius: 8px;
 }
 label{
     font-size: 2em;
@@ -130,6 +139,16 @@ canvas{
 
 }
 
+#disturbance,#dhtAlerts{
+    width: 100%;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#disturbance .col, #dhtAlerts .col{
+    width: 10px;
+}
 @media only screen and (max-width: 600px){
     .dht11-visualization{
         flex-direction: column;

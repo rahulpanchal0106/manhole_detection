@@ -65,6 +65,8 @@ function update3DModel(data) {
 
         const alertList = document.querySelector('#alertList');
         const indicator = document.querySelector('#indicator');
+        const DHTalertList = document.querySelector('#DHTalertList');
+        const DHTindicator = document.querySelector('#DHTindicator');
 
         const pitchRadians = THREE.MathUtils.degToRad(pitch);
         const rollRadians = THREE.MathUtils.degToRad(roll);
@@ -117,9 +119,14 @@ function update3DModel(data) {
             alertList.innerHTML = "Undisturbed"
         }
 
-        if (temperature >= 60) {
-            console.log("Temperature is above 60deg cel");
-            alertList.innerHTML += `Temperature above 60&deg;`
+        if (temperature >= 45) {
+            console.log("Temperature is above 45deg cel");
+            DHTindicator.style.backgroundColor = "red";
+            DHTalertList.innerHTML = `Temperature above 45&deg;`
+        }else{
+            console.log("Temperature is below 45deg cel");
+            DHTindicator.style.backgroundColor = "blue";
+            DHTalertList.innerHTML = `Temperature below 45&deg;`
         }
         var tiltData = `tilt data: ${pitch} , ${roll}`;
         var dhtData = `dht11 data: ${temperature}\u2103, ${humidity}%`
@@ -150,7 +157,7 @@ async function getData() {
         });
 }
 
-// Function to get random alerts (replace with your actual implementation)
+// Function to get random alerts (replace with actual implementation)
 function getAlerts() {
     return Math.random() > 0.8 ? ['Manhole Overflow', 'High Gas Level'] : [];
 
