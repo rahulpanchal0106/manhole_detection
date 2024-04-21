@@ -5,8 +5,8 @@ async function getSensorData (req,res){
         // const sensordata = await sensordata_model.findOne({}).sort({ timestamp: -1 });
         const sensordata = await sensordata_model.find({});
         const lastData = sensordata[sensordata.length-1];
-        console.log(lastData.tilt,"\n",lastData.dht)
-        res.json(lastData)
+        console.log(lastData.tilt,"\n",lastData.dht);
+        res.json(lastData);
     }catch(err){
         console.log('get sensordata error\n',err);
     }

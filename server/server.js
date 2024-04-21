@@ -1,29 +1,32 @@
-require('dotenv').config()
+const express = require('express');
 const http = require('http');
-const app = require('./app')
+const socketIo = require('socket.io');
+const path = require('path');
+
+const app = express();
 const server = http.createServer(app);
-const mongoose = require('mongoose');
-const PORT = process.env.PORT;
-const MONGOURI = process.env.MONGOURI;
+const io = socketIo(server);
 
-mongoose.connection.once('connected',()=>{
-    console.log('database connected!')
-})
-mongoose.connection.on('error',(e)=>{
-    console.error('database connection error\n',e)
-})
+// Serve static files
+app.use(express.static(path.join(__dirname, '..', 'client')));
 
-async function start_server(){
-    try{
-        await mongoose.connect(MONGOURI);
-        
+// Set up routes
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'client', 'dashboard.html'));
+});
 
-        server.listen(PORT,()=>{
-            console.log(`server live ${PORT}`);
-        })
-    }catch(err){
-        console.error('server start error\n',err)
-    }
-}
+// Set up Socket.IO connection
+io.on('connection', (socket) => {
+    console.log('A client connected');
+    
+    // Handle disconnection
+    socket.on('disconnect', () => {
+        console.log('A client disconnected');
+    });
+});
 
-start_server()
+// Start the server
+const PORT = process.env.PORT || 8080;
+server.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});
