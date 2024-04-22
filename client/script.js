@@ -45,7 +45,7 @@ scene.add(cylinder);
 
 document.addEventListener('DOMContentLoaded', () => {
     getData();
-    setInterval(getData, 1000);
+    setInterval(getData, 100);
 });
 
 async function getData() {
