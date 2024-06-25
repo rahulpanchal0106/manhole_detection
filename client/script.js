@@ -9,26 +9,39 @@ const containerWidth = 500; // Fixed container width
 const containerHeight = 300;
 const pixelRatio = window.devicePixelRatio;
 const renderer = new THREE.WebGLRenderer({ antialias: true });
+// const renderer1 = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(containerWidth * pixelRatio, containerHeight * pixelRatio);
+// renderer1.setSize(containerWidth * pixelRatio, containerHeight * pixelRatio);
 renderer.setPixelRatio(pixelRatio);
+// renderer1.setPixelRatio(pixelRatio);
 
 const rendered_obj = renderer.domElement;
+// const rendered_obj1 = renderer1.domElement;
 
 const minScreenWidth = 550;
 const minScreenHeight = 1300;
 
 // Initial size
 rendered_obj.style.width = window.innerWidth < minScreenWidth ? "80vw" : "500px";
+// rendered_obj1.style.width = window.innerWidth < minScreenWidth ? "80vw" : "500px";
 rendered_obj.style.height = window.innerWidth < minScreenHeight ? "45vh" : "300px";
+// rendered_obj1.style.height = window.innerWidth < minScreenHeight ? "45vh" : "300px";
 
 // Update size on window resize
 window.addEventListener('resize', () => {
     rendered_obj.style.width = window.innerWidth < minScreenWidth ? "80vw" : "500px";
+    // rendered_obj1.style.width = window.innerWidth < minScreenWidth ? "80vw" : "500px";
     rendered_obj.style.height = window.innerWidth < minScreenHeight ? "45vh" : "300px";
+    // rendered_obj1.style.height = window.innerWidth < minScreenHeight ? "45vh" : "300px";
 });
 
 const lidContainer = document.querySelector('.lid-container')
+// const innerLidContainer = document.querySelector('#inner-lid-container')
 lidContainer.appendChild(rendered_obj)
+// innerLidContainer.appendChild(rendered_obj)
+// try{innerLidContainer.appendChild(rendered_obj1)}catch(e){
+//     console.log(e)
+// }
 
 const geometry = new THREE.CylinderGeometry(30, 30, 5, 100);
 const material = new THREE.MeshPhongMaterial({
@@ -77,6 +90,8 @@ function update3DModel(data) {
         cylinder.rotation.x = rollRadians;
         cylinder.rotation.z = pitchRadians;
         renderer.render(scene, camera);
+
+        
 
         const animate = () => {
             requestAnimationFrame(animate)
@@ -127,6 +142,8 @@ function update3DModel(data) {
         document.querySelector('#dht').innerHTML = 'No data from server'
         document.querySelector('#tilt').innerHTML = 'No data from server'
     }
+
+    
     return data
 }
 
@@ -134,6 +151,8 @@ function update3DModel(data) {
 function getAlerts() {
     return Math.random() > 0.8 ? ['Manhole Overflow', 'High Gas Level'] : [];
 }
+
+
 
 // Function to update the alerts list
 function updateAlertsList(alerts) {

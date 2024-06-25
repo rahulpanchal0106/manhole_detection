@@ -3,115 +3,133 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IoT Environmental Monitoring</title>
+    <title>IoT based manhole detection</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <style>
+        #map {
+            height: 400px; /* Adjust the height as needed */
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
-
-    
-    
-    <div class="container text-center">
-            <h1>Monitoring Dashboard</h1>
+    <div class="main-container">
+        <h1>Monitoring Dashboard</h1>
+        <div class="map-container">
+            <div id="map"></div>
+        </div>
+        <div class="container text-center">
             <div class="row">
-              <div class="col" class="container text-center" id="alert-indicator-parent">
-                <h2>Alerts</h2>
-                <div class="row" id="alert-indicator">
-                    <div id="disturbance">
-                        <div class="col">
-                            <h3>
-                                Tilt
-                            </h3>
+                <div class="col" id="alert-indicator-parent">
+                    <h2>Alerts</h2>
+                    <div class="row" id="alert-indicator">
+                        <div id="disturbance">
+                            <div class="col">
+                                <h3>Tilt</h3>
+                            </div>
+                            <div class="col">
+                                <div id="indicator"></div>
+                            </div>
+                            <div class="col">
+                                <ul id="alertList"></ul>
+                            </div>
                         </div>
-                        <div class="col" >
-                            <div id="indicator"></div>
-                        </div>
-                        <div class="col">
-                            <ul id="alertList"></ul>
-                        </div>
-                    </div>
-                    <div id="dhtAlerts">
-                        <div class="col">
-                            <h3>
-                                DHT11
-                            </h3>
-                        </div>
-                        <div class="col" >
-                            <div id="DHTindicator"></div>
-                        </div>
-                        <div class="col">
-                            <ul id="DHTalertList"></ul>
-                        </div>
-                    </div>
-                    
-                  </div>
-              </div>
-              <div class="col" class="data-container">
-                <h2>SensorData:</h2>
-
-                <label for="tilt">Tilt</label>
-                <div class="lid-container"></div>
-                <p id="tilt">
-                    Loading...
-                </p>
-
-                <label for="dht">DHT11</label>
-                <div class="dht11-visualization" class="d-flex-column">
-                    <div id="temp">
-                        <svg id="thermometerSVG" xmlns="http://www.w3.org/2000/svg" width="619" height="129.9" viewBox="0 0 619 129.9">
-                            <style>
-                                .st0 {
-                                    fill: #E6E7E8;
-                                }
-                        
-                                .st1 {
-                                    fill: #E6E7E8;
-                                }
-                        
-                                .st2 {
-                                    fill: #FFFFFF;
-                                }
-                        
-                                .st3 {
-                                    fill: none;
-                                    stroke: #D1D3D4;
-                                    stroke-width: 7;
-                                    stroke-miterlimit: 10;
-                                }
-                            </style>
-                            <path id="topThermo"
-                                d="M552 3.5c-17.4 0-34.1 6.7-46 19.7H44.8c-22.5 0-41.3 17.3-41.3 39.3v4.8c0 10.7 4.7 21.4 12.5 29 7.7 7.6 18.1 12 28.8 12h461.7c11.8 11 28.2 18.2 45.5 18.2 35 0 63.5-27.6 63.5-61.4S587 3.5 552 3.5z"
-                                class="st0" />
-                            <rect id="thermometerLineBody" width="0" height="42" x="27" y="44.4" class="st1" />
-                            <text x="89%" y="64" id="thermo-temp" text-anchor="middle" alignment-baseline="middle" font-size="20">loading</text>
-                            <path
-                                d="M552 3.3c-17.4 0-34.1 6.7-46 19.7H44.8C22.3 23 3.5 40.3 3.5 62.3v4.8c0 10.7 4.7 21.4 12.5 29 7.7 7.6 18.1 12 28.8 12h461.7c11.8 11 28.2 18.2 45.5 18.2 35 0 63.5-27.6 63.5-61.4S587 3.3 552 3.3zm0 98.1c-14.4 0-27-7.5-33.6-18.5H44.8c-8.4 0-15.8-7.1-15.8-15.5v-4.8c0-8.3 7.4-14.8 15.8-14.8H518c6.5-11 19.3-19.4 33.9-19.4 21.3 0 38.5 16.3 38.5 36.4.1 20.3-17.2 36.6-38.4 36.6z"
-                                class="st2" />
-                            <path
-                                d="M552 3.5c-17.4 0-34.1 6.7-46 19.7H44.8c-22.5 0-41.3 17.3-41.3 39.3v4.8c0 10.7 4.7 21.4 12.5 29 7.7 7.6 18.1 12 28.8 12h461.7c11.8 11 28.2 18.2 45.5 18.2 35 0 63.5-27.6 63.5-61.4S587 3.5 552 3.5z"
-                                class="st3" />
-                        </svg>
-                    </div> 
-                    <div id="humidity">
-                          
-                        <div id="humidity_indicator">
-                            <p id="humidityText"></p>
-                            <p>Humidity <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-moisture" viewBox="0 0 16 16">
-                                <path d="M13.5 0a.5.5 0 0 0 0 1H15v2.75h-.5a.5.5 0 0 0 0 1h.5V7.5h-1.5a.5.5 0 0 0 0 1H15v2.75h-.5a.5.5 0 0 0 0 1h.5V15h-1.5a.5.5 0 0 0 0 1h2a.5.5 0 0 0 .5-.5V.5a.5.5 0 0 0-.5-.5zM7 1.5l.364-.343a.5.5 0 0 0-.728 0l-.002.002-.006.007-.022.023-.08.088a29 29 0 0 0-1.274 1.517c-.769.983-1.714 2.325-2.385 3.727C2.368 7.564 2 8.682 2 9.733 2 12.614 4.212 15 7 15s5-2.386 5-5.267c0-1.05-.368-2.169-.867-3.212-.671-1.402-1.616-2.744-2.385-3.727a29 29 0 0 0-1.354-1.605l-.022-.023-.006-.007-.002-.001zm0 0-.364-.343zm-.016.766L7 2.247l.016.019c.24.274.572.667.944 1.144.611.781 1.32 1.776 1.901 2.827H4.14c.58-1.051 1.29-2.046 1.9-2.827.373-.477.706-.87.945-1.144zM3 9.733c0-.755.244-1.612.638-2.496h6.724c.395.884.638 1.741.638 2.496C11 12.117 9.182 14 7 14s-4-1.883-4-4.267"/>
-                              </svg></p>
+                        <div id="dhtAlerts">
+                            <div class="col">
+                                <h3>DHT11</h3>
+                            </div>
+                            <div class="col">
+                                <div id="DHTindicator"></div>
+                            </div>
+                            <div class="col">
+                                <ul id="DHTalertList"></ul>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <p id="dht">Loading
-                </p>
-              </div>
+                <div class="col data-container">
+                    <h2>Sensor Data:</h2>
+                    <label for="tilt">Tilt</label>
+                    <div class="lid-container"></div>
+                    <p id="tilt">Loading...</p>
+                    <label for="dht">DHT11</label>
+                    <div class="dht11-visualization d-flex-column">
+                        <div id="temp">
+                            <svg id="thermometerSVG" xmlns="http://www.w3.org/2000/svg" width="619" height="129.9" viewBox="0 0 619 129.9">
+                                <style>
+                                    .st0 { fill: #E6E7E8; }
+                                    .st1 { fill: #E6E7E8; }
+                                    .st2 { fill: #FFFFFF; }
+                                    .st3 { fill: none; stroke: #D1D3D4; stroke-width: 7; stroke-miterlimit: 10; }
+                                </style>
+                                <path id="topThermo" d="M552 3.5c-17.4 0-34.1 6.7-46 19.7H44.8c-22.5 0-41.3 17.3-41.3 39.3v4.8c0 10.7 4.7 21.4 12.5 29 7.7 7.6 18.1 12 28.8 12h461.7c11.8 11 28.2 18.2 45.5 18.2 35 0 63.5-27.6 63.5-61.4S587 3.5 552 3.5z" class="st0" />
+                                <rect id="thermometerLineBody" width="0" height="42" x="27" y="44.4" class="st1" />
+                                <text x="89%" y="64" id="thermo-temp" text-anchor="middle" alignment-baseline="middle" font-size="20">loading</text>
+                                <path d="M552 3.3c-17.4 0-34.1 6.7-46 19.7H44.8C22.3 23 3.5 40.3 3.5 62.3v4.8c0 10.7 4.7 21.4 12.5 29 7.7 7.6 18.1 12 28.8 12h461.7c11.8 11 28.2 18.2 45.5 18.2 35 0 63.5-27.6 63.5-61.4S587 3.3 552 3.3zm0 98.1c-14.4 0-27-7.5-33.6-18.5H44.8c-8.4 0-15.8-7.1-15.8-15.5v-4.8c0-8.3 7.4-14.8 15.8-14.8H518c6.5-11 19.3-19.4 33.9-19.4 21.3 0 38.5 16.3 38.5 36.4.1 20.3-17.2 36.6-38.4 36.6z" class="st2" />
+                                <path d="M552 3.5c-17.4 0-34.1 6.7-46 19.7H44.8c-22.5 0-41.3 17.3-41.3 39.3v4.8c0 10.7 4.7 21.4 12.5 29 7.7 7.6 18.1 12 28.8 12h461.7c11.8 11 28.2 18.2 45.5 18.2 35 0 63.5-27.6 63.5-61.4S587 3.5 552 3.5z" class="st3" />
+                            </svg>
+                        </div>
+                        <div id="humidity">
+                            <div id="humidity_indicator">
+                                <p id="humidityText"></p>
+                                <p>Humidity <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-moisture" viewBox="0 0 16 16">
+                                    <path d="M13.5 0a.5.5 0 0 0 0 1H15v2.75h-.5a.5.5 0 0 0 0 1h.5V7.5h-1.5a.5.5 0 0 0 0 1H15v2.75h-.5a.5.5 0 0 0 0 1h.5V15h-1.5a.5.5 0 0 0 0 1h2a.5.5 0 0 0 .5-.5V.5a.5.5 0 0 0-.5-.5zM7 1.5l.364-.343a.5.5 0 0 0-.728 0l-.002.002-.006.007-.022.023-.08.088a29 29 0 0 0-1.274 1.517c-.769.983-1.714 2.325-2.385 3.727C2.368 7.564 2 8.682 2 9.733 2 12.614 4.212 15 7 15s5-2.386 5-5.267c0-1.05-.368-2.169-.867-3.212-.671-1.402-1.616-2.744-2.385-3.727a29 29 0 0 0-1.354-1.605l-.022-.023-.006-.007-.002-.001zm0 0-.364-.343zm-.016.766L7 2.247l.016.019c.24.274.572.667.944 1.144.611.781 1.32 1.776 1.901 2.827H4.14c.58-1.051 1.29-2.046 1.9-2.827.373-.477.706-.87.945-1.144zM3 9.733c0-.755.244-1.612.638-2.496h6.724c.395.884.638 1.741.638 2.496C11 12.117 9.182 14 7 14s-4-1.883-4-4.267"/>
+                                </svg></p>
+                            </div>
+                        </div>
+                    </div>
+                    <p id="dht">Loading</p>
+                </div>
             </div>
+        </div>
     </div>
-    
+
     <script src="https://cdn.socket.io/4.2.0/socket.io.min.js"></script>
     <script src="./three.js"></script>
     <script src="./script.js"></script>
-    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script>
+        // Example sensor data, this should come from your server
+        const sensorData = {
+            "23.258971, 72.654582": { tilt: 30, temperature: 25, humidity: 60 },
+            "23.258988, 72.649830": { tilt: 45, temperature: 28, humidity: 65 }
+        };
+
+        function updateSensorData(location) {
+            const data = sensorData[location];
+            document.getElementById('tilt').innerText = `Tilt: ${data.tilt}`;
+            document.getElementById('thermo-temp').innerText = `Temperature: ${data.temperature}°C`;
+            document.getElementById('humidityText').innerText = `Humidity: ${data.humidity}%`;
+        }
+
+        var map = L.map('map').setView([23.25, 72.65], 16); // Adjust the coordinates and zoom level as needed
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        const marker1 = L.marker([23.258971, 72.654582]).addTo(map).bindPopup(`
+        <h4>Sewer lid 1</h4>
+        <p style="color:red">Is disturbed</p>
+        <p style="color:green">Temperature is below 45deg</p>
+        `);
+        const marker2 = L.marker([23.258988, 72.649830]).addTo(map).bindPopup(`
+        <h4>Sewer lid 2</h4>
+        <p style="color:green">Is not disturbed</p>
+        <p style="color:green">Temperature is below 45deg</p>
+        `);
+
+        marker1.onclick = (event) => {
+            event.preventDefault()
+            updateSensorData("23.258971, 72.654582");
+        };
+
+        marker2.onclick= (event) => {
+            event.preventDefault();
+            updateSensorData("23.258988, 72.649830");
+        };
+    </script>
 </body>
 </html>

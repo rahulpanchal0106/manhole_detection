@@ -17,6 +17,7 @@ body {
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
+    padding: 10px 20px;
 }
 .container {
     display: flex;
@@ -157,7 +158,7 @@ canvas{
         flex-direction: column;
     }
 }
-/* 
+
 /* HTML: <div class="loader"></div> */
 .loader {
     width: 28px;
@@ -189,4 +190,9 @@ canvas{
   @keyframes l3-1 {
     50% {transform: rotate(var(--s,90deg))}
     100% {transform: rotate(0)}
-  } */
+  } 
+
+.main-container{
+    display: flex;
+    flex-direction: column;
+}
