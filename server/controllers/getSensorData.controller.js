@@ -5,7 +5,7 @@ async function getSensorData (req,res){
         // const sensordata = await sensordata_model.findOne({}).sort({ timestamp: -1 });
         const sensordata = await sensordata_model.find({});
         const lastData = sensordata[sensordata.length-1];
-        // console.log(lastData.tilt,"\n",lastData.dht);
+        console.log(lastData.tilt,"\n",lastData.dht);
         // const forwarded = req.headers['x-forwarded-for'];
         // console.log(req.connection.remoteAddress)
         res.json(lastData);
